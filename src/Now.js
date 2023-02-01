@@ -1,5 +1,7 @@
 export default function Now(props){ 
-  if(typeof(props.response) === 'object') {
+  
+  if(typeof(props.response) === 'object') {   
+  
       
     let temperature = document.querySelector('.temperature');
     let celsiusTemp = document.querySelector('.celsiusTemp');
@@ -8,7 +10,13 @@ export default function Now(props){
     let humidity = document.querySelector('.humidity');
     let wind = document.querySelector('.wind');
     let weatherDescription = document.querySelector('#weatherDescription');
-    let cityName = document.querySelector('.cityName');   
+    let cityName = document.querySelector('.cityName'); 
+    let imagenow = document.querySelector('.imagenow');
+    
+    
+
+    
+    
     
 
 
@@ -19,6 +27,7 @@ let day_time = currentDate.toLocaleDateString('en-US', {
     minute: '2-digit',
 });
 date.innerHTML = day_time;
+
 
 
 //convert celsius to fahrenheit temperature
@@ -50,6 +59,8 @@ celsiusTemp.addEventListener('click', (event) => {
     cityName.innerHTML = props.response.data.name;
     weatherDescription.innerHTML = props.response.data.weather[0].description;
     temperature.innerHTML = Math.round(props.response.data.main.temp);
+    imagenow.innerHTML = '<img src="http://openweathermap.org/img/wn/'+props.response.data.weather[0].icon+'@2x.png" alt="" className="imagenow" />';
+    
   } else {
     console.log('Not OK');
   }
@@ -63,7 +74,7 @@ celsiusTemp.addEventListener('click', (event) => {
         <div className="col-8">
           <div className="row col-12">
             <span className="col-6 m-0 pe-0">
-              
+              <span className="imagenow"><img src="favicon.png" alt="it's an icon that show weather"/></span>
               <span className="temperature"></span>
               <span className="units">
                 <a href="#0" className="celsiusTemp removeUnderline disabledTemp">°C</a> | <a href="#0" className=" fahrenheitTemp removeUnderline">℉</a>
