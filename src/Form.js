@@ -8,6 +8,7 @@ export default function Form() {
     const [ready, setReady] = useState(false);
     const [weatherData, setWeatherData] = useState({});
     const [forecastresponse, setforecastresponse] = useState('');
+    const [timeData, setTimeData] = useState('');
 
     function handleResponse(aResponse) {
         setWeatherData({
@@ -20,6 +21,9 @@ export default function Form() {
         });
         setReady(true);
     }
+    function handleRespo(param) {
+        setTimeData(param);
+    }
     function doAjaxNow(parameterCityName = 'zanjan') {
         axios
             .get(
@@ -29,6 +33,20 @@ export default function Form() {
             )
             .then(function (response) {
                 // handle success
+                axios
+                    .get(
+                        'https://api.ipgeolocation.io/timezone?apiKey=37b300937c0e4b4dbaaf00bf0f852cb9&lat=' +
+                            response.data.coord.lat +
+                            '&long=' +
+                            response.data.coord.lon
+                    )
+                    .then(function (respo) {
+                        handleRespo(respo.data.date_time_txt);
+                    })
+                    .catch(function (ero) {
+                        console.log(ero);
+                    });
+                //handleResponse(response);
                 handleResponse(response);
             })
             .catch(function (error) {
@@ -85,7 +103,7 @@ export default function Form() {
                         </div>
                     </div>
                 </form>
-                <Now weatherDataForNow={weatherData} />
+                <Now weatherDataForNow={weatherData} timeData={timeData} />
                 <Forecast forecastresponse={forecastresponse} />
             </div>
         );

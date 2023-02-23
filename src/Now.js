@@ -1,12 +1,18 @@
 import { useState } from 'react';
 export default function Now(props) {
     console.log(props.weatherDataForNow);
-    let currentDate = new Date();
-    let day_time = currentDate.toLocaleDateString('en-US', {
-        weekday: 'long',
-        hour: '2-digit',
-        minute: '2-digit',
-    });
+    console.log('this is time data', props.timeData);
+    let day_time =
+        props.timeData.split(' ')[0].replace(',', '') +
+        ' ' +
+        props.timeData.split(' ')[4];
+
+    // let currentDate = new Date();
+    // let day_time = currentDate.toLocaleDateString('en-US', {
+    //     weekday: 'long',
+    //     hour: '2-digit',
+    //     minute: '2-digit',
+    // });
 
     //console.log(props.weatherDataForNow.imageNow);
     let imgAdr =
