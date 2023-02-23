@@ -3,3 +3,9 @@
     font-size: large;
     font-weight: 700;
   }
+
+
+
+  hr {
+    border: 3px solid black;
+  }

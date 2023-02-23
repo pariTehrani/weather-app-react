@@ -1,12 +1,12 @@
-function Forecast(props){
-    if(typeof(props.forecastresponse) === 'object') {
+function Forecast(props) {
+    if (Array.isArray(props.forecastresponse)) {
         //console.log(props.forecastresponse);
         let showForecast = document.querySelector('#Forecast');
         //console.log(showForecast);
         showForecast.innerHTML = '';
 
         for (let i = 1; i < 6; i++) {
-            let forecastDate = props.forecastresponse.data.daily[i].time;
+            let forecastDate = props.forecastresponse[i].time;
             forecastDate = new Date(forecastDate * 1000);
             let forecastDay = forecastDate.toLocaleDateString('en-US', {
                 weekday: 'short',
@@ -19,28 +19,23 @@ function Forecast(props){
         </li>
         <li>
           <img src="${
-              props.forecastresponse.data.daily[i].condition.icon_url
+              props.forecastresponse[i].condition.icon_url
           }" alt="" id="imageId">
         </li>
         <li>
-          <span>${Math.round(
-              props.forecastresponse.data.daily[i].temperature.minimum
-          )}°</span>
+          <span id="minimum">${Math.round(
+              props.forecastresponse[i].temperature.minimum
+          )}°</span>  
           <span> ${Math.round(
-              props.forecastresponse.data.daily[i].temperature.maximum
+              props.forecastresponse[i].temperature.maximum
           )}° </span>
         </li>
       </ul>
     </span>`;
             //console.log(i);
         }
-    }    
-    return(
-        <div id="Forecast" className="row">
-            
-        </div>
-    );
+    }
+    return <div id="Forecast" className="row"></div>;
 }
-
 
 export default Forecast;
